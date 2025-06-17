@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF Generator Form</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <h2>Fill the Form</h2>
+  <form id="userForm">
+    <label>Name:</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label>Message:</label><br>
+    <textarea id="message" required></textarea><br><br>
+
+    <button type="submit">Generate and Download PDF</button>
+  </form>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); // prevent page reload
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(14);
+      doc.text("Form Submission", 10, 10);
+      doc.text("Name: " + name, 10, 20);
+      doc.text("Email: " + email, 10, 30);
+      doc.text("Message: " + message, 10, 40);
+
+      doc.save("form_submission.pdf"); // This auto-downloads the PDF
+    });
+  </script>
+</body>
+</html>
